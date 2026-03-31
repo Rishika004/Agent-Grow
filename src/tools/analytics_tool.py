@@ -1,8 +1,8 @@
 """
-PostHog analytics tool.
+Vercel Analytics tool.
 
-Queries PostHog's API for page-level analytics events associated
-with published Ghost blog posts.
+Queries Vercel's Web Analytics API for page-level analytics
+associated with published blog posts.
 """
 
 import os
@@ -13,11 +13,7 @@ import httpx
 
 async def get_post_analytics(slug: str, days: int = 30) -> Dict[str, Any]:
     """
-    Fetch page analytics from PostHog for a specific blog post.
-
-    Queries the PostHog Events API for pageview events matching
-    the post's URL slug, aggregating views, unique visitors,
-    and session duration.
+    Fetch page analytics from Vercel Web Analytics for a specific blog post.
 
     Args:
         slug: URL slug of the blog post (e.g. "no-code-ai-for-coaches").
@@ -28,73 +24,73 @@ async def get_post_analytics(slug: str, days: int = 30) -> Dict[str, Any]:
           - page_views: Total page view count
           - unique_visitors: Unique visitor count
           - bounce_rate: Estimated bounce rate (0-100)
-          - avg_time_on_page: Average session duration string
+          - avg_time_on_page: Average duration string
           - slug: The queried slug
     """
-    print(f"[analytics_tool] Fetching PostHog analytics for slug: '{slug}'")
+    print(f"[analytics_tool] Fetching Vercel Analytics for slug: '{slug}'")
 
-    api_key = os.getenv("POSTHOG_API_KEY")
-    project_id = os.getenv("POSTHOG_PROJECT_ID")
+    token = os.getenv("VERCEL_API_TOKEN")
+    project_id = os.getenv("VERCEL_PROJECT_ID")
 
-    if not api_key or not project_id:
-        print("[analytics_tool] [FAIL] POSTHOG_API_KEY or POSTHOG_PROJECT_ID not set")
+    if not token or not project_id:
+        print("[analytics_tool] [FAIL] VERCEL_API_TOKEN or VERCEL_PROJECT_ID not set")
         return _empty_analytics(slug)
 
-    posthog_host = os.getenv("POSTHOG_HOST", "https://app.posthog.com")
-
     try:
+        from datetime import datetime, timedelta
+
+        end = datetime.utcnow()
+        start = end - timedelta(days=days)
+
         params = {
-            "events": f'[{{"id": "$pageview", "name": "$pageview", "type": "events"}}]',
-            "properties": (
-                f'[{{"key": "$current_url", "value": "{slug}", '
-                f'"operator": "icontains", "type": "event"}}]'
-            ),
-            "date_from": f"-{days}d",
-            "display": "ActionsLineGraph",
+            "projectId": project_id,
+            "from": start.strftime("%Y-%m-%dT00:00:00Z"),
+            "to": end.strftime("%Y-%m-%dT23:59:59Z"),
+            "filter": f'{{"path": {{"is": "/{slug}"}}}}',
         }
 
-        headers = {"Authorization": f"Bearer {api_key}"}
-        url = f"{posthog_host}/api/projects/{project_id}/insights/trend/"
+        headers = {
+            "Authorization": f"Bearer {token}",
+        }
 
         async with httpx.AsyncClient(timeout=20.0) as client:
-            response = await client.get(url, params=params, headers=headers)
+            # Fetch page views
+            views_url = "https://vercel.com/api/web/insights/stats/path"
+            response = await client.get(views_url, params=params, headers=headers)
 
             if response.status_code == 200:
                 data = response.json()
-                return _parse_posthog_response(data, slug)
+                return _parse_vercel_response(data, slug)
             else:
                 print(
-                    f"[analytics_tool] [FAIL] PostHog API error {response.status_code}: "
+                    f"[analytics_tool] [FAIL] Vercel API error {response.status_code}: "
                     f"{response.text[:200]}"
                 )
                 return _empty_analytics(slug)
 
     except Exception as e:
-        print(f"[analytics_tool] [FAIL] PostHog query failed: {e}")
+        print(f"[analytics_tool] [FAIL] Vercel Analytics query failed: {e}")
         return _empty_analytics(slug)
 
 
-def _parse_posthog_response(data: Dict[str, Any], slug: str) -> Dict[str, Any]:
+def _parse_vercel_response(data: Dict[str, Any], slug: str) -> Dict[str, Any]:
     """
-    Parse PostHog trend API response into a flat analytics dict.
-
-    Args:
-        data: Raw PostHog API response.
-        slug: The queried post slug.
-
-    Returns:
-        Structured analytics dict.
+    Parse Vercel Web Analytics API response into a flat analytics dict.
     """
     try:
-        results = data.get("result", [])
-        total_views = 0
-        for series in results:
-            total_views += sum(series.get("data", []))
+        # Vercel returns data array with pageViews and visitors
+        total_views = data.get("pageViews", 0)
+        unique_visitors = data.get("visitors", 0)
+
+        # If response is a list of data points, sum them
+        if isinstance(data.get("data"), list):
+            total_views = sum(d.get("pageViews", 0) for d in data["data"])
+            unique_visitors = sum(d.get("visitors", 0) for d in data["data"])
 
         return {
             "slug": slug,
             "page_views": total_views,
-            "unique_visitors": int(total_views * 0.7),
+            "unique_visitors": unique_visitors,
             "bounce_rate": "N/A",
             "avg_time_on_page": "N/A",
         }

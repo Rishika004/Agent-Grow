@@ -38,7 +38,7 @@ External Integrations:
   Gemini 2.5 Flash ── content writing + LLM-as-judge scoring
   Ghost CMS ──────── blog post publishing (Admin API + JWT)
   linkedin-api ────── LinkedIn post publishing (unofficial)
-  PostHog ─────────── analytics reading (page views, engagement)
+  Vercel Analytics ── analytics reading (page views, visitors)
   Mem0 ────────────── persistent vector memory (what worked before)
   Supabase ────────── draft storage + pgvector for self-hosted Mem0
   FastAPI ─────────── approval UI endpoints + scheduler webhook
@@ -55,7 +55,7 @@ External Integrations:
 | `content` | Calls Gemini 2.5 Flash to write 2 SEO blog posts + LinkedIn hooks per cycle |
 | `await_approval` | Pauses the graph (LangGraph interrupt) until a human approves via API |
 | `linkedin` | Posts the approved LinkedIn hook to the user's LinkedIn profile |
-| `evaluate` | Fetches PostHog analytics and uses Gemini as LLM-as-judge to score 1-10 |
+| `evaluate` | Fetches Vercel Analytics and uses Gemini as LLM-as-judge to score 1-10 |
 | `update_memory` | Stores scored post data to Mem0 so the next cycle improves |
 
 ---
@@ -93,7 +93,7 @@ Required keys:
 | `SUPABASE_URL` + `SUPABASE_SERVICE_KEY` | Supabase project settings |
 | `MEM0_API_KEY` | [mem0.ai](https://mem0.ai) |
 | `GHOST_API_URL` + `GHOST_ADMIN_KEY` | Ghost Admin → Integrations |
-| `POSTHOG_API_KEY` + `POSTHOG_PROJECT_ID` | PostHog project settings |
+| `VERCEL_API_TOKEN` + `VERCEL_PROJECT_ID` | [vercel.com/account/tokens](https://vercel.com/account/tokens) |
 | `LINKEDIN_EMAIL` + `LINKEDIN_PASSWORD` | Your LinkedIn credentials |
 
 ### 4. Create Supabase table
@@ -205,12 +205,12 @@ growth-agent/
 │   │   ├── research_agent.py    # Tavily research node
 │   │   ├── content_agent.py     # Gemini 2.5 Flash content node
 │   │   ├── linkedin_agent.py    # LinkedIn posting node
-│   │   └── analytics_agent.py  # PostHog + LLM-as-judge node
+│   │   └── analytics_agent.py  # Vercel Analytics + LLM-as-judge node
 │   ├── tools/
 │   │   ├── tavily_tool.py       # Tavily search wrapper
 │   │   ├── linkedin_tool.py     # linkedin-api wrapper
 │   │   ├── cms_tool.py          # Ghost Admin API + JWT
-│   │   └── analytics_tool.py   # PostHog API queries
+│   │   └── analytics_tool.py   # Vercel Analytics API queries
 │   ├── memory/
 │   │   └── mem0_client.py       # Mem0 store + retrieve wrappers
 │   ├── api/
@@ -237,7 +237,7 @@ growth-agent/
 - **Supabase** — PostgreSQL database for draft storage
 - **Ghost CMS** — Blog publishing via Admin API
 - **linkedin-api** — LinkedIn posting (unofficial, credentials-based)
-- **PostHog** — Analytics event querying
+- **Vercel Analytics** — Web analytics via Vercel API
 - **FastAPI** — REST API for approval workflow + scheduling
 
 ---

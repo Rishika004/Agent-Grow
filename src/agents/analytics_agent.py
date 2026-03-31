@@ -1,7 +1,7 @@
 """
-Analytics Agent Node -- PostHog analytics reader + LLM-as-judge scorer.
+Analytics Agent Node -- Vercel Analytics reader + LLM-as-judge scorer.
 
-For each published post, reads PostHog page view events, then uses
+For each published post, reads Vercel Web Analytics page view data, then uses
 Gemini as an LLM judge to score content quality 1-10 based
 on actual engagement metrics. Scores are stored for memory update.
 """
@@ -19,10 +19,10 @@ from src.memory.mem0_client import store_memory
 
 async def analytics_node(state: AgentState) -> AgentState:
     """
-    Read PostHog analytics for published posts and score them with Gemini.
+    Read Vercel Analytics for published posts and score them with Gemini.
 
     For each approved draft:
-      1. Fetch page views, bounce rate, time-on-page from PostHog
+      1. Fetch page views and visitors from Vercel Web Analytics
       2. Send analytics to Gemini as LLM-as-judge
       3. Store score + reasoning in state.analytics_scores
       4. Persist score to Mem0 for future cycles
@@ -61,13 +61,13 @@ async def analytics_node(state: AgentState) -> AgentState:
         title = draft.get("title", draft_id)
         print(f"[analytics_agent]   Evaluating: '{title[:60]}'")
 
-        # ── Fetch PostHog analytics ────────────────────────────────────────
+        # ── Fetch Vercel Analytics ─────────────────────────────────────────
         analytics_data: Dict[str, Any] = {}
         try:
             analytics_data = await get_post_analytics(slug=slug)
             print(f"[analytics_agent]   [OK] Analytics fetched: {analytics_data}")
         except Exception as e:
-            state.errors.append(f"analytics_node (posthog, {draft_id}): {str(e)}")
+            state.errors.append(f"analytics_node (vercel, {draft_id}): {str(e)}")
             print(f"[analytics_agent]   [FAIL] Analytics fetch failed: {e}")
             analytics_data = {
                 "page_views": 0,
