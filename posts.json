@@ -1,0 +1,87 @@
+[
+  {
+    "text": "I quit my 9-5 six months ago. Here's what nobody tells you...\n\nMonth 1: Pure panic.\nMonth 2: Clarity.\nMonth 3: First client.\n\nThe leap is scary. The landing is worth it.",
+    "audience": "founder",
+    "tone": "storytelling"
+  },
+  {
+    "text": "Just shipped v2 of my open source project.\n\n→ 3x faster\n→ TypeScript rewrite\n→ 200 GitHub stars in 48hrs\n\nHere's what I learned building it from scratch...",
+    "audience": "engineer",
+    "tone": "professional"
+  },
+  {
+    "text": "6 months of applying. 200+ rejections. 1 offer.\n\nHere's exactly what changed when I started getting callbacks:\n\n1. I stopped mass applying\n2. I rewrote my LinkedIn headline\n3. I sent 5 targeted applications a week instead of 50 random ones\n\nQuality > Quantity. Always.",
+    "audience": "jobseeker",
+    "tone": "storytelling"
+  },
+  {
+    "text": "We're hiring a Senior ML Engineer.\n\nNot looking for someone who knows every framework.\nLooking for someone who can think from first principles.\n\nIf that's you — DM me. Let's talk.",
+    "audience": "recruiter",
+    "tone": "casual"
+  },
+  {
+    "text": "Built an AI agent that writes SEO blog posts, posts to LinkedIn, and learns what works — all autonomously.\n\nStack: LangGraph + Gemini 2.5 Flash + Supabase + FastAPI\n\nThe hardest part wasn't the code. It was trusting the agent to make decisions without me.",
+    "audience": "engineer",
+    "tone": "storytelling"
+  },
+  {
+    "text": "Revenue: $0 → $10K MRR in 90 days.\n\nNo ads. No investors. No team.\n\nJust: a real problem, a simple solution, and 30 cold DMs a day.\n\nHere's the exact playbook I used:",
+    "audience": "founder",
+    "tone": "bold"
+  },
+  {
+    "text": "I got rejected by Google, Meta, and Amazon in the same week.\n\nBest thing that ever happened to me.\n\nHere's why rejection is data, not failure — and how I used it to land a better role 3 months later.",
+    "audience": "jobseeker",
+    "tone": "storytelling"
+  },
+  {
+    "text": "Stop optimizing your resume for ATS.\n\nStart optimizing it for the human who reads it at 11pm after 50 other applications.\n\nThat human wants:\n→ Clear impact numbers\n→ Skills that match the JD\n→ A story that makes sense\n\nGive them that.",
+    "audience": "recruiter",
+    "tone": "professional"
+  },
+  {
+    "text": "The no-code AI tool I built in a weekend now saves our team 15 hours a week.\n\nNo ML degree. No engineering background. Just curiosity and the right tools.\n\nHere's exactly how I built it — step by step:",
+    "audience": "founder",
+    "tone": "casual"
+  },
+  {
+    "text": "GitHub repo: 0 stars to 1,200 in 2 weeks.\n\nWhat worked:\n1. Posted on Hacker News at 9am on a Monday\n2. Added a clean README with a GIF demo\n3. Answered every single comment\n\nDistribution > code quality. Ship and tell people.",
+    "audience": "engineer",
+    "tone": "bold"
+  },
+  {
+    "text": "Gen Z is allergic to work \n\n... I hear HR leaders saying. \n\nRubbish, I say!\n\nI think they are allergic to pointless work 🤷🏻‍♂️\n\nIn a recent survey,\n57% of Gen Z picked learning new skills.\nOnly 12% picked promotions.\n21% picked salary hikes.\n90% said they would take lower pay for better learning.\nNot surprising.\n\nOne of my mentors is a 24-year-old who I hired via a cold email. \nAmong the smartest and hardest working people I know. \nNot chasing a title or pay.\nChasing compounding.\n\nThat's the shift.\n\nThey want fair pay, real learning, passion and ownership.\n\nAI will only make this sharper. \nThis is the first generation building careers with AI from day one. \nBoring work will feel even more pointless. \nHigh-learning roles will compound faster 🚀\n\nBaaki bakwas hai",
+    "audience": "founder",
+    "tone": "bold"
+  },
+  {
+    "text": "India's startup funding in April was $865 million up marginally YoY.\n\nStrip out KreditBee's $310M round and the rest of the ecosystem raised $555M. \n\nNot a recovery. Consolidation 🤷🏻‍♂️\n\nMost established Indian VC funds from the 2019-2021 vintage have a serious DPI problem. Over 60% of funds from that era hasn't returned a single rupee to their LPs - mostly domestic family offices - after 5 years.\n\nPaper markups looked great in 2021. Then the exit window closed. IPO markets provided some relief but recently froze. Secondaries went quiet.\n\nWhen LPs don't get paid, they don't re-up. \nWhen LPs don't get paid, GPs stop swinging for the fences.\n\nKreditBee gets $310M because it's a late-stage fintech with predictable cashflows. It fits what a DPI-hungry fund needs.\n\nThe irony is that right alongside this, a completely different kind of capital is showing up.\n\nSpeciale, Pi Ventures, Celesta, a dozen new deep tech micro-funds. Over $1B pledged just from the India Deep Tech Alliance.\n\nThese funds are first-cycle. Their LPs signed up for a 10-year journey. Risk appetite intact, exactly what India currently needs - capital flowing to IP.\n\nTwo very different investors operating in the same market at the same time, with opposite mandates.\n\nOne is protecting yesterday's portfolio. The other is building tomorrow's.\n\nFounders should know which room they're walking into before they pitch.",
+    "audience": "founder",
+    "tone": "professional"
+  },
+  {
+    "text": "Early 2000s, our biggest bottleneck at Shaadi.com wasn't engineering. It was photos.\n\nPeople would write beautiful bios and then have nothing to upload. They had to go to a studio, get a print, scan it at a cyber cafe, email it back. Half gave up before they finished.\n\nThe photo decided everything before the bio got read.\n\nCut to 2026. Everyone has a 50MP camera in their pocket. Thousands of photos in the gallery. Selfies, group shots, holiday dumps, gym mirror moments. We are drowning in our own faces.\n\nAnd yet. The LinkedIn photo is still a problem.\n\nBecause a casual selfie is not a headshot. Lighting wrong, framing wrong, crop wrong, ya phir aap apne hi photo mein photobombing kar rahe ho 😅\n\nLinkedIn's own data says profiles with professional photos get 21x more views 🚀\n\nBut the problem - Hazaar photos in the gallery, none of them quite right.\n\nMost of us have spent the last year playing with AI image tools for fun. Ghibli portraits, anime versions, action figure trend, whatever. Time pass.\n\nThe actually useful application was hiding in plain sight. A professional headshot- like mine above.\n\nChatGPT Images 2.0 does it in 5 seconds. Upload a regular photo, tell it what you want, done.\n\nDropped the prompt in the comment. Try them on your own photo. If your LinkedIn starts pulling 21x more eyes, the compounding begins right there.",
+    "audience": "founder",
+    "tone": "storytelling"
+  },
+  {
+    "text": "Some weekend thoughts… I love learning from the founders I work with. The best founders I work with don't wait for an investor check to go find customers. They go get customers first, then raise to catalyze growth.\n\nEven at pre-seed. One paying customer does more for your raise than a hundred slides. It's not a hack. It's just proof that something real is happening.\n\nThe ones who struggle? They struggle to grow and immediately think they need capital to solve the problem. But if money showed up tomorrow and customers still wouldn't buy, you don't have a funding problem. You have a sales problem.\n\nFind the real bottleneck. Nine times out of ten it's messaging, positioning, the wrong ICP, or a sales motion that was never actually proven.\n\nDeep tech and hard tech are different, capital has to come before customers can. But if you're building software, this is generally true.\n\nFix the business fundamentals. Funding follows.",
+    "audience": "founder",
+    "tone": "professional"
+  },
+  {
+    "text": "Most founders think their job is to manage teams, attend meetings, raise money, and handle operations.\n\nIt's not.\n\nA founder's most important job is simple:\n\nBuild a product people can't live without.\n\nInvestors come later.\nMarketing works better later.\nHiring becomes easier later.\n\nBut none of it matters if the product doesn't solve a real problem.\n\nThe biggest companies in the world were built because founders stayed obsessed with one thing:\n\nCustomer problems\nProduct quality\nUser experience\nContinuous improvement\n\nA great product creates its own momentum.\n\nEverything else is support.\n\nFounder's Only Job: Build A Great Product.\n\nWhat's the best product you've used recently that made you say \"Wow\"?",
+    "audience": "founder",
+    "tone": "bold"
+  },
+  {
+    "text": "After dozens of DMs from women asking, \"Can you PLEASE do a real conversation on menopause?\", I made an SOS call to my Delhi Public School (DPS) school senior, Mini Mathur and we ended up recording one of the most honest deep dives ever for SUGAR Quoted.\n\nMenopause isn't new. Social media did not create it. It's just that the silence around it is finally ending!\n\nIn this episode, Mini opens up about her journey through perimenopause, a phase that can begin as early as 35 and quietly reshapes your hormones, sleep, mood, metabolism and even how you see yourself. Brain fog. Sudden rage. 3 AM wake-ups. Muscle loss. Anxiety. Dry skin. Basically things many women go through, but almost nobody prepares us for.\n\nSome takeaways that hit hard:\n• Menopause is one day. Perimenopause is the real transition\n• Strength training after 40 isn't optional if you want to undo upto 20% sudden bone loss\n• Your skin changes dramatically, but understanding the \"why\" gives you back control\n• The four pillars Mini swears by: fitness, nutrition, sleep and stress management\n• Hormone literacy is power. Fear thrives where education is missing, so ask better questions when deciding if and when to consider Hormone Replacement Therapy\n\nWe also spoke about ageing, trolling, rebelling against the term \"superwoman,\" and why reclaiming words like \"aunty\" can feel oddly freeing.\n\nThe good news, ladies, is that menopause is not the end. It might just be the beginning - of clarity, of living life on one's own terms. So, watch the full episode now. Link in comments below.",
+    "audience": "founder",
+    "tone": "storytelling"
+  },
+  {
+    "text": "For SUGARQuoted Episode 9, I had the privilege of sitting down with 2 women who live where the real beauty decisions are made i.e. inside the lab - Sandhya Sakhuja, Co-founder of Vedic Cosmeceuticals, one of India's leading personal care manufacturing firms and Mamta Naik who has been leading formulation and R&D at SUGAR Cosmetics for the last 12 years. And we discussed:\n\n1. India's beauty consumption at $12 per capita compared to a $300 in US and what that implies in terms of trade offs: Actives dosage vs price, global trends vs Indian roots, speed vs stability testing and so on.\n2. The reasons why less than 5% of claims you see and believe - online and on packs are backed by valid structured studies and how we can go from 5% to 100%.\n3. The endless rage baiting on social media about SPF testing and the underlying facts that often get missed in the process.\n\nAnd much more. So if you're curious about what really goes behind the scenes in the $20 billion Indian beauty market, check out the link in the comment below.",
+    "audience": "founder",
+    "tone": "professional"
+  }
+]
