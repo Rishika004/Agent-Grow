@@ -5,12 +5,14 @@ similar posts from the style_library table.
 """
 
 import os
+from functools import lru_cache
 from typing import Any, Dict, List, Optional
 
 from google import genai as google_genai
 from supabase import create_client, Client
 
 
+@lru_cache(maxsize=1)
 def get_supabase_client() -> Client:
     url = os.getenv("SUPABASE_URL")
     key = os.getenv("SUPABASE_SERVICE_KEY")
@@ -22,13 +24,15 @@ def get_supabase_client() -> Client:
 def embed_text(text: str) -> List[float]:
     """Embed text using Google text-embedding-004 (768 dimensions)."""
     api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("GEMINI_API_KEY must be set")
     client = google_genai.Client(api_key=api_key)
     result = client.models.embed_content(
         model="models/text-embedding-004",
         contents=text,
         config=google_genai.types.EmbedContentConfig(task_type="RETRIEVAL_QUERY"),
     )
-    return result.embeddings[0].values
+    return list(result.embeddings[0].values)
 
 
 def retrieve_similar_posts(

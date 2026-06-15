@@ -8,7 +8,9 @@ from memory.supabase_rag import embed_text, retrieve_similar_posts
 
 
 def test_embed_text_returns_list_of_floats():
-    with patch('memory.supabase_rag.google_genai') as mock_genai:
+    with patch('memory.supabase_rag.google_genai') as mock_genai, \
+         patch('memory.supabase_rag.os.getenv') as mock_getenv:
+        mock_getenv.return_value = "fake-api-key"
         mock_embedding = MagicMock()
         mock_embedding.values = [0.1] * 768
         mock_genai.Client.return_value.models.embed_content.return_value.embeddings = [mock_embedding]
