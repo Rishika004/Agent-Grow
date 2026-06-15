@@ -7,7 +7,7 @@ similar posts from the style_library table.
 import os
 from typing import Any, Dict, List, Optional
 
-import google.generativeai as genai
+from google import genai as google_genai
 from supabase import create_client, Client
 
 
@@ -22,13 +22,13 @@ def get_supabase_client() -> Client:
 def embed_text(text: str) -> List[float]:
     """Embed text using Google text-embedding-004 (768 dimensions)."""
     api_key = os.getenv("GEMINI_API_KEY")
-    genai.configure(api_key=api_key)
-    result = genai.embed_content(
+    client = google_genai.Client(api_key=api_key)
+    result = client.models.embed_content(
         model="models/text-embedding-004",
-        content=text,
-        task_type="retrieval_query",
+        contents=text,
+        config=google_genai.types.EmbedContentConfig(task_type="RETRIEVAL_QUERY"),
     )
-    return result["embedding"]
+    return result.embeddings[0].values
 
 
 def retrieve_similar_posts(

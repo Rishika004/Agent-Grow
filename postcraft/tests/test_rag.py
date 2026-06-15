@@ -8,8 +8,10 @@ from memory.supabase_rag import embed_text, retrieve_similar_posts
 
 
 def test_embed_text_returns_list_of_floats():
-    with patch('memory.supabase_rag.genai') as mock_genai:
-        mock_genai.embed_content.return_value = {"embedding": [0.1] * 768}
+    with patch('memory.supabase_rag.google_genai') as mock_genai:
+        mock_embedding = MagicMock()
+        mock_embedding.values = [0.1] * 768
+        mock_genai.Client.return_value.models.embed_content.return_value.embeddings = [mock_embedding]
         result = embed_text("test text")
         assert isinstance(result, list)
         assert len(result) == 768
