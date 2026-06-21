@@ -16,36 +16,36 @@ export default function GenerateButton({ loading, onClick, disabled }: GenerateB
     <motion.button
       onClick={onClick}
       disabled={disabled || loading}
-      whileTap={reduced ? {} : { scale: 0.97 }}
-      transition={{ type: "spring", duration: 0.4, bounce: 0.15 }}
+      whileTap={reduced ? {} : { scale: 0.98 }}
+      transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
       style={{
         width: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         gap: "0.5rem",
-        padding: "0.75rem 1.5rem",
-        background: "var(--color-primary)",
+        padding: "0.875rem 1.5rem",
+        background: disabled || loading ? "var(--color-border)" : "var(--color-primary)",
         border: "none",
-        borderRadius: "0.5rem",
-        color: "#fff",
+        borderRadius: "0.375rem",
+        color: disabled || loading ? "var(--color-muted)" : "#fff",
         fontFamily: "var(--font-geist-sans), sans-serif",
-        fontSize: "1rem",
+        fontSize: "0.9375rem",
         fontWeight: 600,
         cursor: disabled || loading ? "not-allowed" : "pointer",
-        opacity: disabled ? 0.4 : 1,
-        transition: "opacity 0.2s",
+        letterSpacing: "0.01em",
+        transition: "background 0.15s",
       }}
     >
       {loading ? (
         <>
-          <SpinnerGap size={18} className="animate-spin" />
-          Generating...
+          <SpinnerGap size={17} className="animate-spin" />
+          Generating your posts...
         </>
       ) : (
         <>
           Generate Posts
-          <ArrowRight size={18} />
+          <ArrowRight size={17} />
         </>
       )}
     </motion.button>

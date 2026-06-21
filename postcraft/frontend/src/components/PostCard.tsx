@@ -36,67 +36,71 @@ export default function PostCard({ variant, index, isBest, onPublish }: PostCard
 
   return (
     <motion.div
-      initial={reduced ? {} : { opacity: 0, y: 16 }}
+      initial={reduced ? {} : { opacity: 0, y: 12 }}
       animate={reduced ? {} : { opacity: 1, y: 0 }}
-      transition={{ type: "spring", duration: 0.4, bounce: 0.15, delay: index * 0.08 }}
+      transition={{ type: "spring", duration: 0.4, bounce: 0.1, delay: index * 0.07 }}
       style={{
         background: "var(--color-surface)",
-        border: "1px solid var(--color-border)",
-        borderRadius: "0.75rem",
-        padding: "1rem",
+        border: `1.5px solid ${isBest ? "var(--color-ink)" : "var(--color-border)"}`,
+        borderRadius: "0.5rem",
+        padding: "1.25rem",
         display: "flex",
         flexDirection: "column",
-        gap: "0.75rem",
-        boxShadow: isBest ? "0 0 0 1px var(--color-primary)" : "none",
+        gap: "0.875rem",
       }}
     >
       {/* Top row */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
-        <span style={{ color: "var(--color-muted)", fontSize: "0.75rem" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        <span style={{
+          fontSize: "0.65rem",
+          fontWeight: 600,
+          letterSpacing: "0.07em",
+          textTransform: "uppercase",
+          color: "var(--color-muted)",
+        }}>
           Variant {index + 1}
         </span>
-        <span
-          style={{
-            background: "var(--color-accent)",
-            color: "oklch(0.080 0.000 0)",
-            fontFamily: "var(--font-geist-mono), monospace",
-            fontSize: "0.7rem",
-            fontWeight: 600,
-            padding: "0.125rem 0.5rem",
-            borderRadius: "9999px",
-          }}
-        >
+        <span style={{
+          background: "var(--color-accent)",
+          color: "#fff",
+          fontFamily: "var(--font-geist-mono), monospace",
+          fontSize: "0.68rem",
+          fontWeight: 700,
+          padding: "0.1rem 0.45rem",
+          borderRadius: "0.25rem",
+        }}>
           {variant.score}/10
         </span>
         {isBest && (
-          <span
-            style={{
-              background: "var(--color-primary)",
-              color: "#fff",
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              padding: "0.125rem 0.5rem",
-              borderRadius: "9999px",
-            }}
-          >
+          <span style={{
+            background: "var(--color-ink)",
+            color: "#fff",
+            fontSize: "0.65rem",
+            fontWeight: 600,
+            padding: "0.1rem 0.45rem",
+            borderRadius: "0.25rem",
+            letterSpacing: "0.03em",
+          }}>
             Best pick
           </span>
         )}
       </div>
 
-      {/* Editable post text */}
+      {/* Post text */}
       <textarea
         ref={textareaRef}
         defaultValue={variant.text}
         rows={6}
         style={{
           width: "100%",
-          background: "transparent",
-          border: "none",
+          background: "#faf9f7",
+          border: "1px solid var(--color-border)",
+          borderRadius: "0.25rem",
+          padding: "0.75rem",
           color: "var(--color-ink)",
           fontFamily: "var(--font-geist-sans), sans-serif",
           fontSize: "0.875rem",
-          lineHeight: 1.6,
+          lineHeight: 1.65,
           resize: "vertical",
           outline: "none",
         }}
@@ -104,39 +108,40 @@ export default function PostCard({ variant, index, isBest, onPublish }: PostCard
 
       {/* Improvement tip */}
       <div style={{ display: "flex", gap: "0.375rem", alignItems: "flex-start" }}>
-        <LightbulbFilament size={14} style={{ color: "var(--color-muted)", marginTop: "0.125rem", flexShrink: 0 }} />
-        <p
-          style={{
-            color: "var(--color-muted)",
-            fontSize: "0.75rem",
-            fontStyle: "italic",
-            margin: 0,
-          }}
-        >
+        <LightbulbFilament size={13} style={{ color: "var(--color-accent)", marginTop: "0.15rem", flexShrink: 0 }} />
+        <p style={{ color: "var(--color-muted)", fontSize: "0.75rem", fontStyle: "italic", margin: 0, lineHeight: 1.5 }}>
           {variant.improvement}
         </p>
       </div>
 
       {/* Actions */}
-      <div style={{ display: "flex", gap: "0.5rem" }}>
+      <div style={{ display: "flex", gap: "0.5rem", borderTop: "1px solid var(--color-border)", paddingTop: "0.875rem" }}>
         <button
           onClick={handleCopy}
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.375rem",
+            gap: "0.35rem",
             padding: "0.5rem 0.875rem",
-            background: "var(--color-bg)",
+            background: "transparent",
             border: "1px solid var(--color-border)",
-            borderRadius: "0.5rem",
+            borderRadius: "0.25rem",
             color: "var(--color-muted)",
             fontFamily: "var(--font-geist-sans), sans-serif",
-            fontSize: "0.8rem",
+            fontSize: "0.8125rem",
             cursor: "pointer",
-            transition: "color 0.15s",
+            transition: "border-color 0.15s, color 0.15s",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--color-ink)";
+            (e.currentTarget as HTMLElement).style.color = "var(--color-ink)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
+            (e.currentTarget as HTMLElement).style.color = "var(--color-muted)";
           }}
         >
-          <CopySimple size={14} />
+          <CopySimple size={13} />
           {copied ? "Copied!" : "Copy"}
         </button>
 
@@ -145,19 +150,19 @@ export default function PostCard({ variant, index, isBest, onPublish }: PostCard
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.375rem",
+            gap: "0.35rem",
             padding: "0.5rem 0.875rem",
             background: "var(--color-primary)",
             border: "none",
-            borderRadius: "0.5rem",
+            borderRadius: "0.25rem",
             color: "#fff",
             fontFamily: "var(--font-geist-sans), sans-serif",
-            fontSize: "0.8rem",
+            fontSize: "0.8125rem",
             fontWeight: 600,
             cursor: "pointer",
           }}
         >
-          <LinkedinLogo size={14} />
+          <LinkedinLogo size={13} />
           Publish
         </button>
       </div>

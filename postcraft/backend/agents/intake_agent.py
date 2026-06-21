@@ -7,7 +7,7 @@ For text: trims and validates non-empty.
 """
 
 import re
-from agents.orchestrator import AgentState
+from postcraft.backend.agents.orchestrator import AgentState
 
 
 async def intake_node(state: AgentState) -> AgentState:

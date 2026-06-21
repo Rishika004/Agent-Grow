@@ -14,6 +14,19 @@ const TABS: { key: InputType; label: string }[] = [
   { key: "text", label: "Text" },
 ];
 
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "0.625rem 0.75rem",
+  background: "#fff",
+  border: "1px solid var(--color-border)",
+  borderRadius: "0.25rem",
+  color: "var(--color-ink)",
+  fontFamily: "var(--font-geist-sans), sans-serif",
+  fontSize: "0.875rem",
+  outline: "none",
+  transition: "border-color 0.15s",
+};
+
 export default function InputSelector({ onChange }: InputSelectorProps) {
   const [activeTab, setActiveTab] = useState<InputType>("github");
   const [githubUrl, setGithubUrl] = useState("");
@@ -52,16 +65,14 @@ export default function InputSelector({ onChange }: InputSelectorProps) {
   }
 
   return (
-    <div
-      style={{
-        background: "var(--color-surface)",
-        border: "1px solid var(--color-border)",
-        borderRadius: "0.75rem",
-        overflow: "hidden",
-      }}
-    >
-      {/* Tabs */}
-      <div style={{ display: "flex", borderBottom: "1px solid var(--color-border)" }}>
+    <div>
+      {/* Tab strip */}
+      <div style={{
+        display: "flex",
+        gap: 0,
+        borderBottom: "1px solid var(--color-border)",
+        marginBottom: "1rem",
+      }}>
         {TABS.map((tab) => {
           const isActive = activeTab === tab.key;
           return (
@@ -69,17 +80,18 @@ export default function InputSelector({ onChange }: InputSelectorProps) {
               key={tab.key}
               onClick={() => handleTabChange(tab.key)}
               style={{
-                flex: 1,
-                padding: "0.75rem 1rem",
+                padding: "0.5rem 1rem",
                 background: "transparent",
                 border: "none",
-                borderBottom: isActive ? "2px solid var(--color-primary)" : "2px solid transparent",
-                color: isActive ? "var(--color-primary)" : "var(--color-muted)",
+                borderBottom: isActive ? "2px solid var(--color-ink)" : "2px solid transparent",
+                color: isActive ? "var(--color-ink)" : "var(--color-muted)",
                 fontFamily: "var(--font-geist-sans), sans-serif",
-                fontSize: "0.875rem",
+                fontSize: "0.8125rem",
                 fontWeight: isActive ? 600 : 400,
                 cursor: "pointer",
-                transition: "color 0.2s, border-color 0.2s",
+                letterSpacing: "0.02em",
+                transition: "color 0.15s",
+                marginBottom: "-1px",
               }}
             >
               {tab.label}
@@ -88,84 +100,72 @@ export default function InputSelector({ onChange }: InputSelectorProps) {
         })}
       </div>
 
-      {/* Input area */}
-      <div style={{ padding: "1rem" }}>
-        {activeTab === "github" && (
+      {activeTab === "github" && (
+        <div>
+          <div style={{ fontSize: "0.75rem", color: "var(--color-muted)", marginBottom: "0.4rem" }}>
+            Repository URL
+          </div>
           <input
             type="url"
             placeholder="https://github.com/user/repo"
             value={githubUrl}
             onChange={handleGithubChange}
-            style={{
-              width: "100%",
-              padding: "0.625rem 0.875rem",
-              background: "var(--color-bg)",
-              border: "1px solid var(--color-border)",
-              borderRadius: "0.5rem",
-              color: "var(--color-ink)",
-              fontFamily: "var(--font-geist-sans), sans-serif",
-              fontSize: "0.875rem",
-              outline: "none",
-            }}
+            style={inputStyle}
           />
-        )}
+        </div>
+      )}
 
-        {activeTab === "image" && (
-          <div
-            onClick={() => fileInputRef.current?.click()}
-            style={{
-              border: "2px dashed var(--color-border)",
-              borderRadius: "0.5rem",
-              padding: "2rem",
-              textAlign: "center",
-              cursor: "pointer",
-              color: "var(--color-muted)",
-              fontSize: "0.875rem",
-              transition: "border-color 0.2s",
-            }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-primary)")
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)")
-            }
-          >
-            {imageName ? (
-              <span style={{ color: "var(--color-ink)" }}>{imageName}</span>
-            ) : (
-              "Drop image or click to upload"
-            )}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              onChange={handleFileChange}
-            />
+      {activeTab === "image" && (
+        <div
+          onClick={() => fileInputRef.current?.click()}
+          style={{
+            border: "1.5px dashed var(--color-border)",
+            borderRadius: "0.375rem",
+            padding: "2.5rem 1rem",
+            textAlign: "center",
+            cursor: "pointer",
+            color: "var(--color-muted)",
+            fontSize: "0.875rem",
+            transition: "border-color 0.15s, background 0.15s",
+            background: "#faf9f7",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--color-ink)";
+            (e.currentTarget as HTMLElement).style.background = "#f5f3ef";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
+            (e.currentTarget as HTMLElement).style.background = "#faf9f7";
+          }}
+        >
+          {imageName
+            ? <span style={{ color: "var(--color-ink)", fontWeight: 500 }}>{imageName}</span>
+            : <span>Click to upload an image</span>
+          }
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+        </div>
+      )}
+
+      {activeTab === "text" && (
+        <div>
+          <div style={{ fontSize: "0.75rem", color: "var(--color-muted)", marginBottom: "0.4rem" }}>
+            Your content
           </div>
-        )}
-
-        {activeTab === "text" && (
           <textarea
             rows={5}
             placeholder="Share what you've been working on, learning, or thinking about..."
             value={textValue}
             onChange={handleTextChange}
-            style={{
-              width: "100%",
-              padding: "0.625rem 0.875rem",
-              background: "var(--color-bg)",
-              border: "1px solid var(--color-border)",
-              borderRadius: "0.5rem",
-              color: "var(--color-ink)",
-              fontFamily: "var(--font-geist-sans), sans-serif",
-              fontSize: "0.875rem",
-              resize: "vertical",
-              outline: "none",
-            }}
+            style={{ ...inputStyle, resize: "vertical" }}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

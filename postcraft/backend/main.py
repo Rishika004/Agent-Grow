@@ -3,9 +3,12 @@ FastAPI entry point for PostCraft backend.
 Exposes /health, /generate, and /publish endpoints.
 """
 
-import asyncio
 import time
 from typing import Any, Dict, List
+from dotenv import load_dotenv
+import pathlib
+
+load_dotenv(pathlib.Path(__file__).parent.parent / ".env")
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -58,8 +61,12 @@ async def generate(request: GenerateRequest) -> Dict[str, Any]:
 
     try:
         graph = get_graph()
-        result = await asyncio.to_thread(graph.invoke, state.model_dump())
+        result = await graph.ainvoke(state.model_dump())
     except Exception as e:
+        import traceback
+        print("=== GENERATE ERROR ===")
+        traceback.print_exc()
+        print("=== END ERROR ===")
         try:
             log_event("error", request.input_type, request.audience, 0, error=str(e))
         except Exception:

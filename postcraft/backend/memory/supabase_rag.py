@@ -1,6 +1,6 @@
 """
 Supabase pgvector RAG client.
-Embeds queries with Google text-embedding-004 and retrieves
+Embeds queries with Google gemini-embedding-001 (3072 dimensions) and retrieves
 similar posts from the style_library table.
 """
 
@@ -28,9 +28,12 @@ def embed_text(text: str) -> List[float]:
         raise ValueError("GEMINI_API_KEY must be set")
     client = google_genai.Client(api_key=api_key)
     result = client.models.embed_content(
-        model="models/text-embedding-004",
+        model="models/gemini-embedding-001",
         contents=text,
-        config=google_genai.types.EmbedContentConfig(task_type="RETRIEVAL_QUERY"),
+        config=google_genai.types.EmbedContentConfig(
+            task_type="RETRIEVAL_QUERY",
+            output_dimensionality=768,
+        ),
     )
     return list(result.embeddings[0].values)
 

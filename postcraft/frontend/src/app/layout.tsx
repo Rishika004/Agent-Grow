@@ -6,8 +6,8 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "LNKD — LinkedIn Post Generator",
-  description: "Generate sharp LinkedIn posts from GitHub links, images, or your own story.",
+  title: "Lingo — Post in your voice. Every time.",
+  description: "Generate LinkedIn posts that sound exactly like you — from GitHub links, images, or your own ideas.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

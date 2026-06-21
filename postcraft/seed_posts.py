@@ -22,9 +22,12 @@ def embed_text(text: str) -> list[float]:
         raise ValueError("GEMINI_API_KEY must be set")
     client = google_genai.Client(api_key=api_key)
     result = client.models.embed_content(
-        model="models/text-embedding-004",
+        model="models/gemini-embedding-001",
         contents=text,
-        config=google_genai.types.EmbedContentConfig(task_type="RETRIEVAL_DOCUMENT"),
+        config=google_genai.types.EmbedContentConfig(
+            task_type="RETRIEVAL_DOCUMENT",
+            output_dimensionality=768,
+        ),
     )
     return list(result.embeddings[0].values)
 
@@ -51,9 +54,10 @@ def seed():
                 "tone": post["tone"],
                 "embedding": embedding,
             }).execute()
-            print(f"[{i+1}/{len(posts)}] OK: {post['text'][:60]}...")
+            preview = post['text'][:60].encode('ascii', errors='replace').decode()
+            print(f"[{i+1}/{len(posts)}] OK: {preview}...")
         except Exception as e:
-            print(f"[{i+1}/{len(posts)}] FAIL: {e}")
+            print(f"[{i+1}/{len(posts)}] FAIL: {e}".encode('ascii', errors='replace').decode())
 
     print("Seeding complete.")
 

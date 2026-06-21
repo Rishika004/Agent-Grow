@@ -30,11 +30,11 @@ class AgentState(BaseModel):
 
 
 def build_graph() -> StateGraph:
-    from agents.intake_agent import intake_node
-    from agents.enrichment_agent import enrichment_node
-    from agents.rag_agent import rag_node
-    from agents.writer_agent import writer_node
-    from agents.critic_agent import critic_node
+    from postcraft.backend.agents.intake_agent import intake_node
+    from postcraft.backend.agents.enrichment_agent import enrichment_node
+    from postcraft.backend.agents.rag_agent import rag_node
+    from postcraft.backend.agents.writer_agent import writer_node
+    from postcraft.backend.agents.critic_agent import critic_node
 
     graph = StateGraph(AgentState)
 
